@@ -72,9 +72,9 @@ def rbwt(y: str) -> str:
     """
 
     first = sorted([l for l in y])
-    if not y[0] == '$':
-        y[0] = '$'
-        
+    if not first[0] == '$':
+        first[0] = '$'
+
     C = bucket_first(first)
     O = calc_O(y, C)
 
