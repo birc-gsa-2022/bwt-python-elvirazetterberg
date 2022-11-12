@@ -55,9 +55,6 @@ def bwt(x: str) -> str:
     'ipssm$pissii'
     """
 
-    if not x.endswith('$'):
-        x += '$'
-
     sa = suffixArray(x)
     col = len(x)-1 # column at the back
 
@@ -70,9 +67,10 @@ def rbwt(y: str) -> str:
     >>> rbwt('ipssm$pissii')
     'mississippi'
     """
-
+    sentinel = True
     first = sorted([l for l in y])
     if not first[0] == '$':
+        sentinel = False
         first[0] = '$'
 
     C = bucket_first(first)
@@ -85,6 +83,9 @@ def rbwt(y: str) -> str:
     for j in range(2,len(y)+1):
         i = C[y[i]]+O[y[i]][i] # i = start of letter bucket + amount of that seen letter up to that point
         x[-j] = y[i] # fill from the back
+
+    if sentinel == False:
+        x.pop()
 
     return ''.join(x)
 
